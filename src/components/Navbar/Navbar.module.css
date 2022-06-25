@@ -1,0 +1,8 @@
+.sidebar {
+    grid-area: sidebar;
+    border: 1px solid gray;
+}
+
+.sidebar a {
+    color: black;
+}

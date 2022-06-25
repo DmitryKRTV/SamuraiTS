@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
+import HeaderModule from "./Header.module.css";
 
 const Header = () => {
     return (
-        <div>
-            <div><a href={"#"}>Home</a></div>
-            <div><a href={"#"}>New Feed</a></div>
-            <div><a href={"#"}>Messages</a></div>
+        <div className={HeaderModule["header"]}>
+            Header
         </div>
     );
 };
