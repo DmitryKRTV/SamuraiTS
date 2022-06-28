@@ -1,0 +1,28 @@
+.dialogs {
+    display: flex;
+}
+
+.dialogs-items {
+    flex: 0 0 10rem;
+}
+
+.item {
+    color: black;
+    display: block;
+    margin: 0.5rem;
+}
+
+.active {
+    color: black;
+    display: block;
+    margin: 0.5rem;
+    font-weight: 700;
+}
+
+.messages {
+    flex: 1 1 1fr;
+}
+
+.message {
+    margin: 0.5rem;
+}
