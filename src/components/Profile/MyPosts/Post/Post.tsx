@@ -1,10 +1,11 @@
 import React from "react";
 import PostModule from "./Post.module.css";
 
-type PostType = {
+export type PostType = {
     message: string
     likes: number
 }
+
 
 const Post = (props: PostType) => {
     return (

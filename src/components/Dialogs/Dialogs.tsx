@@ -1,25 +1,42 @@
 import React from "react";
 import dialogsModule from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
-import {v1} from "uuid";
 import Message from "./Message/Message";
 
+type DialogsPropsType = {
+    dialogsData: Array<dialogsDataType>
+    messagesData: Array<messagesDataType>
+}
 
-const Dialogs = () => {
+export type dialogsDataType = {
+    id: string
+    name: string
+}
+
+export type messagesDataType = {
+    id: string
+    title: string
+}
+
+
+const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
+
+
     return (
         <div className={dialogsModule["dialogs"]}>
             <div className={dialogsModule["dialogs-items"]}>
-                <DialogItem name={"Dimich"} id={v1()}/>
-                <DialogItem name={"Andrey"} id={v1()}/>
-                <DialogItem name={"Sveta"} id={v1()}/>
-                <DialogItem name={"Sasha"} id={v1()}/>
-                <DialogItem name={"Victor"} id={v1()}/>
-                <DialogItem name={"Valera"} id={v1()}/>
+                {dialogsData.map((i) => {
+                    return (
+                        <DialogItem name={i.name} id={i.id} key={i.id}/>
+                    )
+                })}
             </div>
             <div className={dialogsModule["messages"]}>
-                <Message messageBody={"Hello"}/>
-                <Message messageBody={"Hi"}/>
-                <Message messageBody={"Yo"}/>
+                {messagesData.map((i) => {
+                    return (
+                        <Message title={i.title} key={i.id}/>
+                    )
+                })}
             </div>
         </div>
     );

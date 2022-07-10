@@ -1,8 +1,11 @@
 import React from "react";
 import MyPostsModule from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import {postsDataType} from "../Profile";
 
-const MyPosts = () => {
+
+const MyPosts: React.FC<postsDataType> = ({postsData}) => {
+
     return (
         <div className={MyPostsModule.myPosts}>
             MyPosts
@@ -11,8 +14,11 @@ const MyPosts = () => {
                 <button>add posts</button>
             </div>
             <div className={MyPostsModule.itemsContainer}>
-                <Post message={"Holla"} likes={5}/>
-                <Post message={"It's post"} likes={2}/>
+                {postsData.map((i) => {
+                    return (
+                        <Post key={i.id} message={i.message} likes={i.likes}/>
+                    )
+                })}
             </div>
 
         </div>

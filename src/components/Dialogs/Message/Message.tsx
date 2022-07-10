@@ -2,12 +2,12 @@ import React from "react";
 import dialogsModule from "../Dialogs.module.css";
 
 type MessageType = {
-    messageBody: string
+    title: string
 }
 
 const Message = (props: MessageType) => {
     return (
-        <div className={dialogsModule["message"]}>{props.messageBody}</div>
+        <div className={dialogsModule["message"]}>{props.title}</div>
     );
 };
 

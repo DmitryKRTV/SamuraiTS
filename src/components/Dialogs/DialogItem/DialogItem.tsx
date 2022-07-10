@@ -5,7 +5,7 @@ import dialogsModule from "../Dialogs.module.css";
 
 const ActiveLink = ({isActive}: IsActiveType) => isActive ? dialogsModule["active"] : dialogsModule["item"]
 
-type DialogItemType = {
+export type DialogItemType = {
     id: string
     name: string
 }
