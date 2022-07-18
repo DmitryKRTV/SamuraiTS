@@ -3,8 +3,9 @@ import ProfileModule from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-export type postsDataType = {
+export type ProfileType = {
     postsData: Array<postExampleType>
+    addPost: (postMessage: string) => void
 }
 
 export type postExampleType = {
@@ -13,12 +14,12 @@ export type postExampleType = {
     likes: number
 }
 
-const Profile: React.FC<postsDataType> = ({postsData}) => {
+const Profile: React.FC<ProfileType> = ({postsData, addPost}) => {
 
     return (
         <div className={ProfileModule["content"]}>
             <ProfileInfo/>
-            <MyPosts postsData={postsData}/>
+            <MyPosts postsData={postsData} addPost={addPost}/>
         </div>
     );
 };

@@ -11,9 +11,10 @@ type AppPropsType = {
     postsData: Array<postExampleType>
     dialogsData: Array<dialogsDataType>
     messagesData: Array<messagesDataType>
+    addPost: (postMessage: string) => void
 }
 
-const App: React.FC<AppPropsType> = ({postsData, dialogsData, messagesData}) => {
+const App: React.FC<AppPropsType> = ({postsData, dialogsData, messagesData, addPost}) => {
     return (
         <BrowserRouter>
             <div className="App">
@@ -21,7 +22,7 @@ const App: React.FC<AppPropsType> = ({postsData, dialogsData, messagesData}) => 
                 <Navbar/>
                 <div className={"content"}>
                     <Routes>
-                        <Route path="/profile" element={<Profile postsData={postsData}/>}/>
+                        <Route path="/profile" element={<Profile postsData={postsData} addPost={addPost}/>}/>
                         <Route path="/dialogs/*"
                                element={<Dialogs dialogsData={dialogsData} messagesData={messagesData}/>}/>
                     </Routes>

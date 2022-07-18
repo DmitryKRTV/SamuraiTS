@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {renderEntireTree} from "../render";
 
 
 let state = {
@@ -64,6 +65,16 @@ let state = {
         ]
     },
     sidebar: {},
+}
+
+export const addPost = (postMessage: string) => {
+    const newPost = {
+        id: v1(),
+        message: postMessage,
+        likes: 0,
+    }
+    state.profilePage.postsData.push(newPost)
+    renderEntireTree(state, addPost);
 }
 
 export default state
