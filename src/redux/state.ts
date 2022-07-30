@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {renderEntireTree} from "../render";
 
 
 let state = {
@@ -68,6 +67,10 @@ let state = {
     sidebar: {},
 }
 
+let renderEntireTree = () => {
+    console.log("State Changed")
+}
+
 export const addPost = (postMessage: string) => {
     const newPost = {
         id: v1(),
@@ -75,12 +78,16 @@ export const addPost = (postMessage: string) => {
         likes: 0,
     }
     state.profilePage.postsData.push(newPost)
-    renderEntireTree(state);
+    renderEntireTree();
 }
 
 export const updateNewPostText = (changedText: string) => {
     state.profilePage.newPostText = changedText;
-    renderEntireTree(state);
+    renderEntireTree();
+}
+
+export const subscribe = (observer: () => void) => {
+    renderEntireTree = observer
 }
 
 export default state
