@@ -2,10 +2,12 @@ import React from "react";
 import ProfileModule from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {profilePageType} from "../../App";
 
 export type ProfileType = {
-    postsData: Array<postExampleType>
+    profilePage: profilePageType
     addPost: (postMessage: string) => void
+    updateNewPostText: (changedText: string) => void
 }
 
 export type postExampleType = {
@@ -14,12 +16,16 @@ export type postExampleType = {
     likes: number
 }
 
-const Profile: React.FC<ProfileType> = ({postsData, addPost}) => {
+const Profile: React.FC<ProfileType> = ({profilePage, addPost, updateNewPostText}) => {
 
     return (
         <div className={ProfileModule["content"]}>
             <ProfileInfo/>
-            <MyPosts postsData={postsData} addPost={addPost}/>
+            <MyPosts postsData={profilePage.postsData}
+                     addPost={addPost}
+                     newPostText={profilePage.newPostText}
+                     updateNewPostText={updateNewPostText}
+            />
         </div>
     );
 };

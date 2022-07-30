@@ -21,6 +21,7 @@ let state = {
                 likes: 4
             },
         ],
+        newPostText: "it-kamasutra.com"
     },
     dialogsPage: {
         dialogsData: [
@@ -74,7 +75,12 @@ export const addPost = (postMessage: string) => {
         likes: 0,
     }
     state.profilePage.postsData.push(newPost)
-    renderEntireTree(state, addPost);
+    renderEntireTree(state);
+}
+
+export const updateNewPostText = (changedText: string) => {
+    state.profilePage.newPostText = changedText;
+    renderEntireTree(state);
 }
 
 export default state

@@ -5,24 +5,38 @@ import {postExampleType} from "../Profile";
 
 export type MyPostsDataType = {
     postsData: Array<postExampleType>
+    newPostText: string
     addPost: (postMessage: string) => void
+    updateNewPostText: (changedText: string) => void
 }
 
 
-const MyPosts: React.FC<MyPostsDataType> = ({postsData, addPost}) => {
+const MyPosts: React.FC<MyPostsDataType> = (props) => {
+
+    const {postsData, addPost, newPostText, updateNewPostText} = props
 
     let newPostElement: any = React.createRef();
 
     const addPostHandler = () => {
         let text = newPostElement.current.value;
         addPost(text)
+        newPostElement.current.value = ""
+        updateNewPostText("")
+    }
+
+    const onTextareaChange = () => {
+        let text = newPostElement.current.value;
+        updateNewPostText(text)
     }
 
     return (
         <div className={MyPostsModule.myPosts}>
             MyPosts
             <div>
-                <textarea ref={newPostElement}></textarea>
+                <textarea ref={newPostElement}
+                          value={newPostText}
+                          onChange={onTextareaChange}
+                ></textarea>
                 <button
                     onClick={addPostHandler}
                 >add posts
