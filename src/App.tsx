@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile, {postExampleType} from "./components/Profile/Profile";
 import Dialogs, {dialogsDataType, messagesDataType} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {updateNewPostText} from "./redux/state";
 
 export type profilePageType = {
     postsData: Array<postExampleType>
@@ -16,7 +15,7 @@ type AppPropsType = {
     profilePage: profilePageType
     dialogsData: Array<dialogsDataType>
     messagesData: Array<messagesDataType>
-    addPost: (postMessage: string) => void
+    addPost: () => void
     updateNewPostText: (changedText: string) => void
 }
 

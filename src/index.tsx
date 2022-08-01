@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import state, {addPost, subscribe, updateNewPostText} from "./redux/state"
+import store from "./redux/state"
 
 
 export const root = ReactDOM.createRoot(
@@ -13,17 +13,17 @@ export const root = ReactDOM.createRoot(
 const renderEntireTree = () => {
     root.render(
         <React.StrictMode>
-            <App profilePage={state.profilePage}
-                 dialogsData={state.dialogsPage.dialogsData}
-                 messagesData={state.dialogsPage.messagesData}
-                 addPost={addPost}
-                 updateNewPostText={updateNewPostText}
+            <App profilePage={store.getState().profilePage}
+                 dialogsData={store.getState().dialogsPage.dialogsData}
+                 messagesData={store.getState().dialogsPage.messagesData}
+                 addPost={store.addPost.bind(store)}
+                 updateNewPostText={store.updateNewPostText.bind(store)}
             />
         </React.StrictMode>
     );
 }
 renderEntireTree()
-subscribe(renderEntireTree);
+store.subscribe(renderEntireTree);
 
 
 // If you want to start measuring performance in your app, pass a function

@@ -6,7 +6,7 @@ import {postExampleType} from "../Profile";
 export type MyPostsDataType = {
     postsData: Array<postExampleType>
     newPostText: string
-    addPost: (postMessage: string) => void
+    addPost: () => void
     updateNewPostText: (changedText: string) => void
 }
 
@@ -18,9 +18,7 @@ const MyPosts: React.FC<MyPostsDataType> = (props) => {
     let newPostElement: any = React.createRef();
 
     const addPostHandler = () => {
-        let text = newPostElement.current.value;
-        addPost(text)
-        newPostElement.current.value = ""
+        addPost()
         updateNewPostText("")
     }
 
