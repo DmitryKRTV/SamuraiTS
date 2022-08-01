@@ -14,7 +14,7 @@ export type UpdateNewPostActionType = { type: string, changedText: string }
 
 export type StoreType = {
     _state: StateType;
-    renderEntireTree: () => void;
+    renderEntireTree: (state: any) => void;
     getState: () => StateType;
     subscribe: (observer: () => void) => void
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
@@ -53,7 +53,7 @@ export type DialogsPageType = {
     newMessageBody: string
 }
 
-const store: StoreType = {
+const oldStore: StoreType = {
     _state: {
         profilePage: {
             postsData: [
@@ -121,21 +121,21 @@ const store: StoreType = {
         sidebar: {},
     },
 
-    renderEntireTree() {
+    renderEntireTree(state: any) {
         console.log("State Changed")
     },
     getState() {
         return this._state;
     },
     subscribe(observer: () => void) {
-        store.renderEntireTree = observer
+        this.renderEntireTree = observer
     },
 
     dispatch(action: AddPostActionType | UpdateNewPostActionType) {
         profileReducer(this._state.profilePage, action)
         dialogsReducer(this._state.dialogsPage, action)
         sidebarReducer(this._state, action)
-        this.renderEntireTree()
+        this.renderEntireTree(this._state)
     }
 
 }
@@ -152,4 +152,4 @@ export const updateNewMessageActionCreator = (changedText: string) => ({
     changedText: changedText,
 })
 
-export default store
+export default oldStore

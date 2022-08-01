@@ -1,7 +1,8 @@
-import {AddPostActionType, StateType, UpdateNewPostActionType} from "./state";
-import dialogsReducer from "./dialogsReducer";
+import {AddPostActionType, UpdateNewPostActionType} from "./state";
 
-export const sidebarReducer = (state: StateType,
+const initialState = {}
+
+export const sidebarReducer = (state = initialState,
                                action: AddPostActionType | UpdateNewPostActionType) => {
     return state
 }

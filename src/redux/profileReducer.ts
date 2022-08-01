@@ -1,11 +1,42 @@
-import {AddPostActionType, ProfilePageType, StateType, UpdateNewPostActionType} from "./state";
 import {v1} from "uuid";
+import {AddPostActionType, UpdateNewPostActionType} from "./state";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
 
-export const profileReducer = (state: ProfilePageType,
-                               action: AddPostActionType | UpdateNewPostActionType) => {
+type ProfilePageType = {
+    postsData: Array<PostsDataType>;
+    newPostText: string;
+}
+type PostsDataType = {
+    id: string;
+    message: string;
+    likes: number
+}
+
+const initialState: ProfilePageType = {
+    postsData: [
+        {
+            id: v1(),
+            message: "Holla",
+            likes: 5
+        },
+        {
+            id: v1(),
+            message: "It's post",
+            likes: 2
+        },
+        {
+            id: v1(),
+            message: "Yo",
+            likes: 4
+        },
+    ],
+    newPostText: "it-kamasutra.com"
+}
+
+const profileReducer = (state: ProfilePageType = initialState,
+                        action: AddPostActionType | UpdateNewPostActionType) => {
 
     switch (action.type) {
         case ADD_POST:

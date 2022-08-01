@@ -1,11 +1,68 @@
-import {AddPostActionType, DialogsPageType, StateType, UpdateNewPostActionType} from "./state";
 import {v1} from "uuid";
-import profileReducer from "./profileReducer";
+import {AddPostActionType, UpdateNewPostActionType} from "./state";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-export const dialogsReducer = (state: DialogsPageType,
+type DialogsDataType = {
+    id: string;
+    name: string;
+}
+type MessagesDataType = {
+    id: string;
+    title: string;
+}
+type DialogsPageType = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    newMessageBody: string
+}
+
+const initialState: DialogsPageType = {
+    dialogsData: [
+        {
+            id: v1(),
+            name: "Dimich"
+        },
+        {
+            id: v1(),
+            name: "Andrey"
+        },
+        {
+            id: v1(),
+            name: "Sveta"
+        },
+        {
+            id: v1(),
+            name: "Sasha"
+        },
+        {
+            id: v1(),
+            name: "Victor"
+        },
+        {
+            id: v1(),
+            name: "Valera"
+        },
+    ],
+    messagesData: [
+        {
+            id: v1(),
+            title: "Hello"
+        },
+        {
+            id: v1(),
+            title: "Hi"
+        },
+        {
+            id: v1(),
+            title: "Yo"
+        },
+    ],
+    newMessageBody: "",
+}
+
+export const dialogsReducer = (state: DialogsPageType = initialState,
                                action: AddPostActionType | UpdateNewPostActionType) => {
 
 

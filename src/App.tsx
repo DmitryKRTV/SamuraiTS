@@ -5,10 +5,10 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AddPostActionType, StateType, UpdateNewPostActionType} from "./redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "./redux/state";
 
 type AppPropsType = {
-    state: StateType
+    state: any
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
