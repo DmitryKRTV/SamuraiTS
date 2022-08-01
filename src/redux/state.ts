@@ -1,6 +1,42 @@
 import {v1} from "uuid";
 
-let store = {
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_POST = "ADD-POST";
+
+export type AddPostActionType = { type: string }
+export type UpdateNewPostActionType = { type: string, changedText: string }
+
+export type StoreType = {
+    _state: StateType;
+    renderEntireTree: () => void;
+    getState: () => StateType;
+    subscribe: (observer: () => void) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+}
+
+export type StateType = {
+    profilePage: ProfilePageType;
+    dialogsPage: DialogsPageType;
+    sidebar: {};
+}
+
+export type ProfilePageType = {
+    postsData: Array<PostsDataType>;
+    newPostText: string;
+}
+
+export type PostsDataType = {
+    id: string;
+    message: string;
+    likes: number
+}
+
+export type DialogsPageType = {
+    dialogsData: Array<{ id: string; name: string; }>
+    messagesData: Array<{ id: string; title: string; }>
+}
+
+const store: StoreType = {
     _state: {
         profilePage: {
             postsData: [
@@ -66,29 +102,43 @@ let store = {
         },
         sidebar: {},
     },
-    getState() {
-        return this._state;
-    },
+
     renderEntireTree() {
         console.log("State Changed")
     },
-    addPost() {
-        const newPost = {
-            id: v1(),
-            message: this._state.profilePage.newPostText,
-            likes: 0,
-        }
-        this._state.profilePage.postsData.push(newPost)
-        this._state.profilePage.newPostText = ""
-        store.renderEntireTree();
-    },
-    updateNewPostText(changedText: string) {
-        this._state.profilePage.newPostText = changedText;
-        store.renderEntireTree();
+    getState() {
+        return this._state;
     },
     subscribe(observer: () => void) {
         store.renderEntireTree = observer
     },
+
+    dispatch(action: { type: string; changedText?: string }) {
+        switch (action.type) {
+            case ADD_POST:
+                const newPost = {
+                    id: v1(),
+                    message: this._state.profilePage.newPostText,
+                    likes: 0,
+                }
+                this._state.profilePage.postsData.push(newPost)
+                this._state.profilePage.newPostText = ""
+                store.renderEntireTree();
+                break
+            case UPDATE_NEW_POST_TEXT:
+                if (action.changedText || action.changedText === "") {
+                    this._state.profilePage.newPostText = action.changedText;
+                }
+                store.renderEntireTree();
+        }
+    }
+
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST})
+export const updateNewPostActionCreator = (changedText: string) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    changedText: changedText,
+})
 
 export default store

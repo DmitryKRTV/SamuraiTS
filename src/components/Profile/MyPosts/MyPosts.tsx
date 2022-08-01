@@ -1,38 +1,36 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import MyPostsModule from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {postExampleType} from "../Profile";
+import {
+    addPostActionCreator,
+    AddPostActionType, PostsDataType,
+    updateNewPostActionCreator,
+    UpdateNewPostActionType
+} from "../../../redux/state";
 
 export type MyPostsDataType = {
-    postsData: Array<postExampleType>
+    postsData: Array<PostsDataType>
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (changedText: string) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
 
 const MyPosts: React.FC<MyPostsDataType> = (props) => {
 
-    const {postsData, addPost, newPostText, updateNewPostText} = props
+    const {postsData, dispatch, newPostText} = props
 
-    let newPostElement: any = React.createRef();
+    const addPostHandler = () => dispatch(addPostActionCreator())
 
-    const addPostHandler = () => {
-        addPost()
-        updateNewPostText("")
-    }
 
-    const onTextareaChange = () => {
-        let text = newPostElement.current.value;
-        updateNewPostText(text)
+    const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(updateNewPostActionCreator(e.currentTarget.value))
     }
 
     return (
         <div className={MyPostsModule.myPosts}>
             MyPosts
             <div>
-                <textarea ref={newPostElement}
-                          value={newPostText}
+                <textarea value={newPostText}
                           onChange={onTextareaChange}
                 ></textarea>
                 <button

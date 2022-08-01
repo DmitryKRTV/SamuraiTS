@@ -2,25 +2,18 @@ import React from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile, {postExampleType} from "./components/Profile/Profile";
-import Dialogs, {dialogsDataType, messagesDataType} from "./components/Dialogs/Dialogs";
+import Profile from "./components/Profile/Profile";
+import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-
-export type profilePageType = {
-    postsData: Array<postExampleType>
-    newPostText: string
-}
+import {AddPostActionType, StateType, UpdateNewPostActionType} from "./redux/state";
 
 type AppPropsType = {
-    profilePage: profilePageType
-    dialogsData: Array<dialogsDataType>
-    messagesData: Array<messagesDataType>
-    addPost: () => void
-    updateNewPostText: (changedText: string) => void
+    state: StateType
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
-    const {profilePage, dialogsData, messagesData, addPost, updateNewPostText} = props
+    const {state, dispatch} = props
 
     return (
         <BrowserRouter>
@@ -30,12 +23,12 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className={"content"}>
                     <Routes>
                         <Route path="/profile"
-                               element={<Profile profilePage={profilePage}
-                                                 addPost={addPost}
-                                                 updateNewPostText={updateNewPostText}
+                               element={<Profile profilePage={state.profilePage}
+                                                 dispatch={dispatch}
                                />}/>
                         <Route path="/dialogs/*"
-                               element={<Dialogs dialogsData={dialogsData} messagesData={messagesData}/>}/>
+                               element={<Dialogs dialogsData={state.dialogsPage.dialogsData}
+                                                 messagesData={state.dialogsPage.messagesData}/>}/>
                     </Routes>
                 </div>
             </div>

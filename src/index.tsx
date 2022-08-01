@@ -13,11 +13,8 @@ export const root = ReactDOM.createRoot(
 const renderEntireTree = () => {
     root.render(
         <React.StrictMode>
-            <App profilePage={store.getState().profilePage}
-                 dialogsData={store.getState().dialogsPage.dialogsData}
-                 messagesData={store.getState().dialogsPage.messagesData}
-                 addPost={store.addPost.bind(store)}
-                 updateNewPostText={store.updateNewPostText.bind(store)}
+            <App state={store.getState()}
+                 dispatch={store.dispatch.bind(store)}
             />
         </React.StrictMode>
     );
