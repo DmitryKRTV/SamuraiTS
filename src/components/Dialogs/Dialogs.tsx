@@ -1,42 +1,63 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import dialogsModule from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {
+    AddPostActionType,
+    DialogsDataType,
+    MessagesDataType, sendMessageActionCreator,
+    updateNewMessageActionCreator,
+    UpdateNewPostActionType
+} from "../../redux/state";
 
 type DialogsPropsType = {
-    dialogsData: Array<dialogsDataType>
-    messagesData: Array<messagesDataType>
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+    newMessageBody: string
 }
 
-export type dialogsDataType = {
-    id: string
-    name: string
-}
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-export type messagesDataType = {
-    id: string
-    title: string
-}
+    const {dialogsData, messagesData, dispatch, newMessageBody} = props
 
+    const dialogsElements = dialogsData.map((i) => {
+        return (
+            <DialogItem name={i.name} id={i.id} key={i.id}/>
+        )
+    })
 
-const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
+    const messagesElements = messagesData.map((i) => {
+        return (
+            <Message title={i.title} key={i.id}/>
+        )
+    })
 
+    const onTextAreaChanged = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(updateNewMessageActionCreator(e.currentTarget.value))
+    };
+
+    const onClickHandler = () => dispatch(sendMessageActionCreator())
 
     return (
         <div className={dialogsModule["dialogs"]}>
             <div className={dialogsModule["dialogs-items"]}>
-                {dialogsData.map((i) => {
-                    return (
-                        <DialogItem name={i.name} id={i.id} key={i.id}/>
-                    )
-                })}
+                {dialogsElements}
             </div>
             <div className={dialogsModule["messages"]}>
-                {messagesData.map((i) => {
-                    return (
-                        <Message title={i.title} key={i.id}/>
-                    )
-                })}
+                {messagesElements}
+            </div>
+            <div>
+                <textarea placeholder={"Enter your message"}
+                          value={newMessageBody}
+                          onChange={onTextAreaChanged}
+                ></textarea>
+            </div>
+            <div>
+                <button
+                    onClick={onClickHandler}
+                >Send
+                </button>
             </div>
         </div>
     );
