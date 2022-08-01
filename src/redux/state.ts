@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
@@ -6,7 +9,7 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-export type AddPostActionType = { type: string }
+export type AddPostActionType = { type: string, changedText?: "" }
 export type UpdateNewPostActionType = { type: string, changedText: string }
 
 export type StoreType = {
@@ -128,45 +131,11 @@ const store: StoreType = {
         store.renderEntireTree = observer
     },
 
-    dispatch(action: { type: string; changedText?: string }) {
-        switch (action.type) {
-            case ADD_POST:
-                const newPost = {
-                    id: v1(),
-                    message: this._state.profilePage.newPostText,
-                    likes: 0,
-                }
-                this._state.profilePage.postsData.push(newPost)
-                this._state.profilePage.newPostText = ""
-                store.renderEntireTree();
-                break
-
-            case UPDATE_NEW_POST_TEXT:
-                if (action.changedText || action.changedText === "") {
-                    this._state.profilePage.newPostText = action.changedText;
-                }
-                store.renderEntireTree();
-                break
-
-            case SEND_MESSAGE:
-                const newMessage = {
-                    id: v1(),
-                    title: this._state.dialogsPage.newMessageBody,
-                }
-                this._state.dialogsPage.messagesData.push(newMessage)
-                this._state.dialogsPage.newMessageBody = ""
-                store.renderEntireTree();
-                break
-
-            case UPDATE_NEW_MESSAGE_BODY:
-                if (action.changedText || action.changedText === "") {
-                    this._state.dialogsPage.newMessageBody = action.changedText;
-                }
-                store.renderEntireTree();
-                break
-
-
-        }
+    dispatch(action: AddPostActionType | UpdateNewPostActionType) {
+        profileReducer(this._state.profilePage, action)
+        dialogsReducer(this._state.dialogsPage, action)
+        sidebarReducer(this._state, action)
+        this.renderEntireTree()
     }
 
 }
