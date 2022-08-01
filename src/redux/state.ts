@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
+import {StateType} from "./reduxStore";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
@@ -20,34 +21,29 @@ export type StoreType = {
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
-export type StateType = {
-    profilePage: ProfilePageType;
-    dialogsPage: DialogsPageType;
-    sidebar: {};
-}
 
-export type ProfilePageType = {
+type ProfilePageType = {
     postsData: Array<PostsDataType>;
     newPostText: string;
 }
 
-export type PostsDataType = {
+type PostsDataType = {
     id: string;
     message: string;
     likes: number
 }
 
-export type DialogsDataType = {
+type DialogsDataType = {
     id: string;
     name: string;
 }
 
-export type MessagesDataType = {
+type MessagesDataType = {
     id: string;
     title: string;
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
     newMessageBody: string

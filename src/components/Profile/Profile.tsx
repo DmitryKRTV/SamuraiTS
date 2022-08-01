@@ -1,8 +1,9 @@
 import React from "react";
 import ProfileModule from "./Profile.module.css";
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {AddPostActionType, ProfilePageType, UpdateNewPostActionType} from "../../redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "../../redux/state";
+import {ProfilePageType} from "../../redux/profileReducer";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 export type ProfileType = {
     profilePage: ProfilePageType
@@ -14,9 +15,9 @@ const Profile: React.FC<ProfileType> = ({profilePage, dispatch}) => {
     return (
         <div className={ProfileModule["content"]}>
             <ProfileInfo/>
-            <MyPosts postsData={profilePage.postsData}
-                     dispatch={dispatch}
-                     newPostText={profilePage.newPostText}
+            <MyPostsContainer postsData={profilePage.postsData}
+                              newPostText={profilePage.newPostText}
+                              dispatch={dispatch}
             />
         </div>
     );

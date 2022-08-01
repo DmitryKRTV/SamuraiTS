@@ -4,15 +4,15 @@ import {AddPostActionType, UpdateNewPostActionType} from "./state";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-type DialogsDataType = {
+export type DialogsDataType = {
     id: string;
     name: string;
 }
-type MessagesDataType = {
+export type MessagesDataType = {
     id: string;
     title: string;
 }
-type DialogsPageType = {
+export type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
     newMessageBody: string

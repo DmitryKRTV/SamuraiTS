@@ -2,24 +2,26 @@ import React, {ChangeEvent} from "react";
 import dialogsModule from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {
-    AddPostActionType,
-    DialogsDataType,
-    MessagesDataType, sendMessageActionCreator,
-    updateNewMessageActionCreator,
-    UpdateNewPostActionType
-} from "../../redux/state";
+
+import {DialogsDataType, MessagesDataType} from "../../redux/dialogsReducer";
 
 type DialogsPropsType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
     newMessageBody: string
+    sendMessage: () => void
+    onTextAreaChanged: (changedText: string) => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const {dialogsData, messagesData, dispatch, newMessageBody} = props
+    const {
+        dialogsData,
+        messagesData,
+        newMessageBody,
+        sendMessage,
+        onTextAreaChanged
+    } = props
 
     const dialogsElements = dialogsData.map((i) => {
         return (
@@ -33,11 +35,11 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         )
     })
 
-    const onTextAreaChanged = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewMessageActionCreator(e.currentTarget.value))
+    const onTextAreaChangedHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        onTextAreaChanged(e.currentTarget.value)
     };
 
-    const onClickHandler = () => dispatch(sendMessageActionCreator())
+    const onClickHandler = () => sendMessage()
 
     return (
         <div className={dialogsModule["dialogs"]}>
@@ -50,7 +52,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
             <div>
                 <textarea placeholder={"Enter your message"}
                           value={newMessageBody}
-                          onChange={onTextAreaChanged}
+                          onChange={onTextAreaChangedHandler}
                 ></textarea>
             </div>
             <div>

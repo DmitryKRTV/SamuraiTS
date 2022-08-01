@@ -4,11 +4,11 @@ import {AddPostActionType, UpdateNewPostActionType} from "./state";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
 
-type ProfilePageType = {
+export type ProfilePageType = {
     postsData: Array<PostsDataType>;
     newPostText: string;
 }
-type PostsDataType = {
+export type PostsDataType = {
     id: string;
     message: string;
     likes: number
