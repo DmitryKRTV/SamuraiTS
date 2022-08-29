@@ -15,10 +15,7 @@ const Profile: React.FC<ProfileType> = ({profilePage, dispatch}) => {
     return (
         <div className={ProfileModule["content"]}>
             <ProfileInfo/>
-            <MyPostsContainer postsData={profilePage.postsData}
-                              newPostText={profilePage.newPostText}
-                              dispatch={dispatch}
-            />
+            <MyPostsContainer/>
         </div>
     );
 };

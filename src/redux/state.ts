@@ -142,8 +142,8 @@ export const updateNewPostActionCreator = (changedText: string) => ({
     changedText: changedText,
 })
 
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
-export const updateNewMessageActionCreator = (changedText: string) => ({
+export const sendMessageAC = () => ({type: SEND_MESSAGE})
+export const updateNewMessageAC = (changedText: string) => ({
     type: UPDATE_NEW_MESSAGE_BODY,
     changedText: changedText,
 })

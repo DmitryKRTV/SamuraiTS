@@ -13,7 +13,7 @@ type DialogsPropsType = {
     onTextAreaChanged: (changedText: string) => void
 }
 
-const Dialogs: React.FC<DialogsPropsType> = (props) => {
+const Dialogs = ({...props}: DialogsPropsType) => {
 
     const {
         dialogsData,

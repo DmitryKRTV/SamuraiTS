@@ -1,15 +1,14 @@
-import React, {ChangeEvent} from "react";
-import MyPostsModule from "./MyPosts.module.css";
-import Post from "./Post/Post";
+import React from "react";
 import {
     addPostActionCreator,
     AddPostActionType,
     updateNewPostActionCreator,
     UpdateNewPostActionType
 } from "../../../redux/state";
-import {PostsDataType} from "../../../redux/profileReducer";
+import {ProfileDispatchType, PostsDataType} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../../redux/reduxStore";
 
 export type MyPostsContainerType = {
     postsData: Array<PostsDataType>
@@ -18,27 +17,56 @@ export type MyPostsContainerType = {
 }
 
 
-const MyPostsContainer: React.FC<MyPostsContainerType> = (props) => {
+// const MyPostsContainer: React.FC<MyPostsContainerType> = (props) => {
+//
+//     const {postsData, newPostText, dispatch} = props
+//
+//     const addPost = () => dispatch(addPostActionCreator())
+//
+//     const onTextareaChange = (changedText: string) => {
+//         dispatch(updateNewPostActionCreator(changedText))
+//     }
+//
+//     return (
+//         <StoreContext.Consumer>
+//             {store => (<MyPosts postsData={postsData}
+//                                 newPostText={newPostText}
+//                                 updateNewText={onTextareaChange}
+//                                 addPost={addPost}
+//             />)
+//             }
+//         </StoreContext.Consumer>
+//     );
+// };
 
-    const {postsData, newPostText, dispatch} = props
+type mapStateToPropsReturnType = {
+    postsData: Array<PostsDataType>;
+    newPostText: string;
+}
 
-    const addPost = () => dispatch(addPostActionCreator())
+type mapDispatchToPropsReturnType = {
+    addPost: () => void
+    updateNewText: (changedText: string) => void
+}
 
-    const onTextareaChange = (changedText: string) => {
-        dispatch(updateNewPostActionCreator(changedText))
+let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
+    return {
+        postsData: state.profilePage.postsData,
+        newPostText: state.profilePage.newPostText,
     }
+}
 
-    return (
-        <StoreContext.Consumer>
-            {store => (<MyPosts postsData={postsData}
-                                newPostText={newPostText}
-                                updateNewText={onTextareaChange}
-                                addPost={addPost}
-                                store={store}
-            />)
-            }
-        </StoreContext.Consumer>
-    );
-};
+let mapDispatchToProps = (dispatch: ProfileDispatchType): mapDispatchToPropsReturnType => {
+    return {
+        addPost: () => {
+            dispatch(addPostActionCreator())
+        },
+        updateNewText: (changedText: string) => {
+            dispatch(updateNewPostActionCreator(changedText))
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;

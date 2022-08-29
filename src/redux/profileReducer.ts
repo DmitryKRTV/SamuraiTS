@@ -14,6 +14,8 @@ export type PostsDataType = {
     likes: number
 }
 
+export type ProfileDispatchType = (action: AddPostActionType | UpdateNewPostActionType) => void
+
 const initialState: ProfilePageType = {
     postsData: [
         {

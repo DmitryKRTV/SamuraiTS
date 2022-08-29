@@ -1,16 +1,14 @@
 import React, {ChangeEvent} from "react";
-import dialogsModule from "./Dialogs.module.css"
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
 import {
     AddPostActionType,
-
-    sendMessageActionCreator,
-    updateNewMessageActionCreator,
+    sendMessageAC,
+    updateNewMessageAC,
     UpdateNewPostActionType
 } from "../../redux/state";
-import {DialogsDataType, MessagesDataType} from "../../redux/dialogsReducer";
+import {DialogsDataType, DialogsDispatchType, DialogsPageType, MessagesDataType} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
+import {AppStateType, StateType} from "../../redux/reduxStore";
 
 type DialogsPropsType = {
     dialogsData: Array<DialogsDataType>
@@ -20,25 +18,56 @@ type DialogsPropsType = {
     //store: any
 }
 
-const DialogsContainer: React.FC<DialogsPropsType> = (props) => {
+// const DialogsContainer = ({...props}: DialogsPropsType) => {
+//
+//     const {dialogsData, messagesData, dispatch, newMessageBody} = props
+//
+//     const onTextAreaChanged = (changedText: string) => {
+//         dispatch(updateNewMessageAC(changedText))
+//     };
+//
+//     const onSendMessageClick = () => dispatch(sendMessageAC())
+//
+//     return (
+//         <Dialogs dialogsData={dialogsData}
+//                  messagesData={messagesData}
+//                  newMessageBody={newMessageBody}
+//                  sendMessage={onSendMessageClick}
+//                  onTextAreaChanged={onTextAreaChanged}
+//         />
+//     );
+// };
 
-    const {dialogsData, messagesData, dispatch, newMessageBody} = props
+type mapStateToPropsReturnType = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    newMessageBody: string
+}
 
-    const onTextAreaChanged = (changedText: string) => {
-        dispatch(updateNewMessageActionCreator(changedText))
-    };
+type mapDispatchToPropsReturnType = {
+    sendMessage: () => void
+    onTextAreaChanged: (changedText: string) => void
+}
 
-    const onClickHandler = () => dispatch(sendMessageActionCreator())
+let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
+    return {
+        dialogsData: state.dialogsPage.dialogsData,
+        messagesData: state.dialogsPage.messagesData,
+        newMessageBody: state.dialogsPage.newMessageBody,
+    }
+}
 
-    return (
-        <Dialogs dialogsData={dialogsData}
-                 messagesData={messagesData}
-                 newMessageBody={newMessageBody}
-                 sendMessage={onClickHandler}
-                 onTextAreaChanged={onTextAreaChanged}
-        />
-    );
-};
+let mapDispatchToProps = (dispatch: DialogsDispatchType): mapDispatchToPropsReturnType => {
+    return {
+        sendMessage: () => {
+            dispatch(sendMessageAC())
+        },
+        onTextAreaChanged: (changedText: string) => {
+            dispatch(updateNewMessageAC(changedText))
+        }
+    }
+}
 
+const DialogsContainer = connect<mapStateToPropsReturnType, mapDispatchToPropsReturnType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;

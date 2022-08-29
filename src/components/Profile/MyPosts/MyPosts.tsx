@@ -1,7 +1,6 @@
 import React, {ChangeEvent} from "react";
 import MyPostsModule from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {StoreType} from "../../../redux/state";
 import {PostsDataType} from "../../../redux/profileReducer";
 
 export type MyPostsDataType = {
@@ -9,7 +8,6 @@ export type MyPostsDataType = {
     newPostText: string
     updateNewText: (changedText: string) => void
     addPost: () => void
-    store: StoreType
 }
 
 

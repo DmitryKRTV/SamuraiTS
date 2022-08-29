@@ -18,6 +18,8 @@ export type DialogsPageType = {
     newMessageBody: string
 }
 
+export type DialogsDispatchType = (action: AddPostActionType | UpdateNewPostActionType) => void
+
 const initialState: DialogsPageType = {
     dialogsData: [
         {
@@ -61,6 +63,7 @@ const initialState: DialogsPageType = {
     ],
     newMessageBody: "",
 }
+
 
 export const dialogsReducer = (state: DialogsPageType = initialState,
                                action: AddPostActionType | UpdateNewPostActionType) => {

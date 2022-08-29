@@ -3,19 +3,13 @@ import profileReducer, {ProfilePageType} from "./profileReducer";
 import dialogsReducer, {DialogsPageType} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 
-type StoreType = {
-    subscribe: () => void
-    replaceReducer: () => void
-    getState: () => void
-    dispatch: () => void
-    observable: () => any
-}
-
 export type StateType = {
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
     sidebar: {};
 }
+
+export type AppStateType = ReturnType<typeof reducers>
 
 const reducers = combineReducers({
     profilePage: profileReducer,
