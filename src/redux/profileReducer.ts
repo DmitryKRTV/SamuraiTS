@@ -1,20 +1,24 @@
 import {v1} from "uuid";
-import {AddPostActionType, UpdateNewPostActionType} from "./state";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
 
 export type ProfilePageType = {
-    postsData: Array<PostsDataType>;
-    newPostText: string;
+    postsData: Array<PostsDataType>
+    newPostText: string
 }
 export type PostsDataType = {
-    id: string;
-    message: string;
+    id: string
+    message: string
     likes: number
 }
 
-export type ProfileDispatchType = (action: AddPostActionType | UpdateNewPostActionType) => void
+export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
+
+type finalActionType = UpdateNewPostActionType | AddPostActionType
+
+export type ProfileDispatchType = (action: finalActionType) => void
 
 const initialState: ProfilePageType = {
     postsData: [
@@ -38,26 +42,38 @@ const initialState: ProfilePageType = {
 }
 
 const profileReducer = (state: ProfilePageType = initialState,
-                        action: AddPostActionType | UpdateNewPostActionType) => {
+                        action: finalActionType) => {
 
     switch (action.type) {
         case ADD_POST:
-            const newPost = {
-                id: v1(),
-                message: state.newPostText,
-                likes: 0,
+            if (state.newPostText) {
+                return {
+                    ...state,
+                    postsData: [{id: v1(), message: state.newPostText, likes: 0}, ...state.postsData],
+                    newPostText: "",
+                }
             }
-            state.postsData.push(newPost)
-            state.newPostText = ""
-            break
+            return state
 
         case UPDATE_NEW_POST_TEXT:
-            if (action.changedText || action.changedText === "") {
-                state.newPostText = action.changedText;
-            }
-            break
+            return {
+                ...state,
+                newPostText: action.changedText
+            };
     }
     return state
+}
+
+export const addPostAC = () => {
+    return {
+        type: ADD_POST,
+    } as const
+}
+export const updateNewPostAC = (changedText: string) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        changedText: changedText,
+    } as const
 }
 
 export default profileReducer;

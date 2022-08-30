@@ -10,10 +10,10 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-export type AddPostActionType = { type: string, changedText?: "" }
-export type UpdateNewPostActionType = { type: string, changedText: string }
+type AddPostActionType = { type: string, changedText?: "" }
+type UpdateNewPostActionType = { type: string, changedText: string }
 
-export type StoreType = {
+type StoreType = {
     _state: StateType;
     renderEntireTree: (state: any) => void;
     getState: () => StateType;
@@ -127,7 +127,7 @@ const oldStore: StoreType = {
         this.renderEntireTree = observer
     },
 
-    dispatch(action: AddPostActionType | UpdateNewPostActionType) {
+    dispatch(action: any) { // instead of any: AddPostActionType | UpdateNewPostActionType
         profileReducer(this._state.profilePage, action)
         dialogsReducer(this._state.dialogsPage, action)
         sidebarReducer(this._state, action)
@@ -136,14 +136,14 @@ const oldStore: StoreType = {
 
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateNewPostActionCreator = (changedText: string) => ({
+const addPostActionCreator = () => ({type: ADD_POST})
+const updateNewPostActionCreator = (changedText: string) => ({
     type: UPDATE_NEW_POST_TEXT,
     changedText: changedText,
 })
 
-export const sendMessageAC = () => ({type: SEND_MESSAGE})
-export const updateNewMessageAC = (changedText: string) => ({
+const sendMessageAC = () => ({type: SEND_MESSAGE})
+const updateNewMessageAC = (changedText: string) => ({
     type: UPDATE_NEW_MESSAGE_BODY,
     changedText: changedText,
 })

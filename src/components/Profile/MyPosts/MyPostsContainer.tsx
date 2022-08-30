@@ -1,20 +1,14 @@
 import React from "react";
-import {
-    addPostActionCreator,
-    AddPostActionType,
-    updateNewPostActionCreator,
-    UpdateNewPostActionType
-} from "../../../redux/state";
-import {ProfileDispatchType, PostsDataType} from "../../../redux/profileReducer";
+import {ProfileDispatchType, PostsDataType, addPostAC, updateNewPostAC} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/reduxStore";
 
-export type MyPostsContainerType = {
-    postsData: Array<PostsDataType>
-    newPostText: string
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
-}
+// export type MyPostsContainerType = {
+//     postsData: Array<PostsDataType>
+//     newPostText: string
+//     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+// }
 
 
 // const MyPostsContainer: React.FC<MyPostsContainerType> = (props) => {
@@ -59,10 +53,10 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsReturnType => {
 let mapDispatchToProps = (dispatch: ProfileDispatchType): mapDispatchToPropsReturnType => {
     return {
         addPost: () => {
-            dispatch(addPostActionCreator())
+            dispatch(addPostAC())
         },
         updateNewText: (changedText: string) => {
-            dispatch(updateNewPostActionCreator(changedText))
+            dispatch(updateNewPostAC(changedText))
         }
     }
 }

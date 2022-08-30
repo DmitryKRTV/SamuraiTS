@@ -1,42 +1,14 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {
-    AddPostActionType,
+    DialogsDataType,
+    DialogsDispatchType,
+    MessagesDataType,
     sendMessageAC,
-    updateNewMessageAC,
-    UpdateNewPostActionType
-} from "../../redux/state";
-import {DialogsDataType, DialogsDispatchType, DialogsPageType, MessagesDataType} from "../../redux/dialogsReducer";
+    updateNewMessageAC
+} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {AppStateType, StateType} from "../../redux/reduxStore";
-
-type DialogsPropsType = {
-    dialogsData: Array<DialogsDataType>
-    messagesData: Array<MessagesDataType>
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
-    newMessageBody: string
-    //store: any
-}
-
-// const DialogsContainer = ({...props}: DialogsPropsType) => {
-//
-//     const {dialogsData, messagesData, dispatch, newMessageBody} = props
-//
-//     const onTextAreaChanged = (changedText: string) => {
-//         dispatch(updateNewMessageAC(changedText))
-//     };
-//
-//     const onSendMessageClick = () => dispatch(sendMessageAC())
-//
-//     return (
-//         <Dialogs dialogsData={dialogsData}
-//                  messagesData={messagesData}
-//                  newMessageBody={newMessageBody}
-//                  sendMessage={onSendMessageClick}
-//                  onTextAreaChanged={onTextAreaChanged}
-//         />
-//     );
-// };
+import {AppStateType} from "../../redux/reduxStore";
 
 type mapStateToPropsReturnType = {
     dialogsData: Array<DialogsDataType>

@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {AddPostActionType, UpdateNewPostActionType} from "./state";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
@@ -18,7 +17,12 @@ export type DialogsPageType = {
     newMessageBody: string
 }
 
-export type DialogsDispatchType = (action: AddPostActionType | UpdateNewPostActionType) => void
+export type sendMessageActionType = ReturnType<typeof sendMessageAC>
+export type updateNewMessageActionType = ReturnType<typeof updateNewMessageAC>
+
+type finalActionType = sendMessageActionType | updateNewMessageActionType
+
+export type DialogsDispatchType = (action: finalActionType) => void
 
 const initialState: DialogsPageType = {
     dialogsData: [
@@ -66,29 +70,40 @@ const initialState: DialogsPageType = {
 
 
 export const dialogsReducer = (state: DialogsPageType = initialState,
-                               action: AddPostActionType | UpdateNewPostActionType) => {
+                               action: finalActionType) => {
 
 
     switch (action.type) {
         case SEND_MESSAGE:
-            const newMessage = {
-                id: v1(),
-                title: state.newMessageBody,
+            if (state.newMessageBody) {
+                return {
+                    ...state,
+                    messagesData: [{id: v1(), title: state.newMessageBody}, ...state.messagesData],
+                    newMessageBody: "",
+                }
             }
-            state.messagesData.push(newMessage)
-            state.newMessageBody = ""
-            break
+            return state
 
         case UPDATE_NEW_MESSAGE_BODY:
-            if (action.changedText || action.changedText === "") {
-                state.newMessageBody = action.changedText;
+            return {
+                ...state,
+                newMessageBody: action.changedText
             }
-            break
-
-
     }
 
     return state
+}
+
+export const sendMessageAC = () => {
+    return {
+        type: SEND_MESSAGE
+    } as const
+}
+export const updateNewMessageAC = (changedText: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_BODY,
+        changedText: changedText,
+    } as const
 }
 
 export default dialogsReducer;
