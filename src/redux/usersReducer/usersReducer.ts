@@ -7,14 +7,13 @@ const SET_USERS = "SET_USERS";
 
 export type UserType = {
     id: string
-    photoUrl: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
+    photos: {
+        small: string
+        large: string
     }
+    followed: boolean
+    name: string
+    status: string
 }
 
 export type UsersType = {
@@ -28,32 +27,7 @@ type SetUsersAType = ReturnType<typeof setUsersAC>
 type finalType = SetUsersAType | FollowAType | UnfollowAType
 
 const initialState: UsersType = {
-    users: [
-        {
-            id: v1(),
-            photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8czLLczg6As4Noqb2sanBsq4n6lf4anQY4g&usqp=CAU",
-            followed: false,
-            fullName: "Dima",
-            status: "hello",
-            location: {city: "Minsk", country: "Belarus"}
-        },
-        {
-            id: v1(),
-            photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8czLLczg6As4Noqb2sanBsq4n6lf4anQY4g&usqp=CAU",
-            followed: true,
-            fullName: "Roma",
-            status: "hello",
-            location: {city: "Moscow", country: "Russia"}
-        },
-        {
-            id: v1(),
-            photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8czLLczg6As4Noqb2sanBsq4n6lf4anQY4g&usqp=CAU",
-            followed: false,
-            fullName: "Ghenya",
-            status: "hello",
-            location: {city: "Kiev", country: "Ukraine"}
-        },
-    ] as UserType[]
+    users: [] as UserType[]
 }
 
 export const usersReducer = (state: UsersType = initialState,

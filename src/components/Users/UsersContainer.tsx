@@ -1,13 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Users} from "./Users";
+import {UsersF} from "./UsersF";
 import {AppStateType} from "../../redux/reduxStore";
 import {followAC, setUsersAC, unfollowAC, UserType} from "../../redux/usersReducer/usersReducer";
+import {Users} from "./UsersС";
 
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 type mapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>
 
-export type finalType = mapStateToPropsType | mapDispatchToPropsType
+export type finalType = mapStateToPropsType & mapDispatchToPropsType
+
 
 const mapStateToProps = (state: AppStateType) => {
     return {
