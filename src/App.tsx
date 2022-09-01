@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Users} from "./components/Users/Users";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 type AppPropsType = {
     state: any
@@ -25,6 +27,8 @@ const App: React.FC<AppPropsType> = (props) => {
                                />}/>
                         <Route path="/dialogs/*"
                                element={<DialogsContainer/>}/>
+                        <Route path="/users/*"
+                               element={<UsersContainer/>}/>
                     </Routes>
                 </div>
             </div>

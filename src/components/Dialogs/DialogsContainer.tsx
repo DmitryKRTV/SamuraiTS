@@ -5,7 +5,7 @@ import {
     MessagesDataType,
     sendMessageAC,
     updateNewMessageAC
-} from "../../redux/dialogsReducer";
+} from "../../redux/dialogsReducer/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/reduxStore";

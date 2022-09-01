@@ -1,7 +1,8 @@
 import {combineReducers, createStore} from "@reduxjs/toolkit"
-import profileReducer, {ProfilePageType} from "./profileReducer";
-import dialogsReducer, {DialogsPageType} from "./dialogsReducer";
-import sidebarReducer from "./sidebarReducer";
+import profileReducer, {ProfilePageType} from "./profileReducer/profileReducer";
+import dialogsReducer, {DialogsPageType} from "./dialogsReducer/dialogsReducer";
+import sidebarReducer from "./sidebarReducer/sidebarReducer";
+import {usersReducer} from "./usersReducer/usersReducer";
 
 export type StateType = {
     profilePage: ProfilePageType;
@@ -15,6 +16,7 @@ const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
+    usersPage: usersReducer,
 })
 
 const store = createStore(reducers)

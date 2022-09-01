@@ -1,8 +1,8 @@
 import {v1} from "uuid";
-import profileReducer from "./profileReducer";
-import dialogsReducer from "./dialogsReducer";
-import sidebarReducer from "./sidebarReducer";
-import {StateType} from "./reduxStore";
+import profileReducer from "../profileReducer/profileReducer";
+import dialogsReducer from "../dialogsReducer/dialogsReducer";
+import sidebarReducer from "../sidebarReducer/sidebarReducer";
+import {StateType} from "../reduxStore";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const ADD_POST = "ADD-POST";
