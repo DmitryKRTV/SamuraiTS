@@ -7,7 +7,7 @@ import {Logout} from "./Logout/Logout"
 import {Profile} from "./MyPage/Profile"
 import {Groups} from "./Groups/Groups"
 import {SectionCSSType} from "../../../App"
-import {Error} from "../../Error"
+import {Error} from "../../Error/Error"
 import {useAppSelector} from "../../../hooks/useAppSelector"
 
 const Photos = React.lazy(() => import("./Photos/Photos"))
@@ -23,23 +23,23 @@ export const Main: React.FC<MainPropsType> = React.memo(({section, changeGrid}):
     // Authorization check
     if (!isAuth) {
         changeGrid("sectionLogout")
-        return <Navigate to="logout" />
+        return <Navigate to="logout"/>
     }
 
     return (
         <div className={styles.main}>
             <Routes>
-                <Route path="*" element={<Error />} />
-                <Route path="/" element={<Profile />} />
-                <Route path="profile/*" element={<Profile />} />
-                <Route path="messages" element={<Messages />} />
-                <Route path="friends/*" element={<Friends />} />
-                <Route path="groups" element={<Groups />} />
+                <Route path="*" element={<Error/>}/>
+                <Route path="/" element={<Profile/>}/>
+                <Route path="profile/*" element={<Profile/>}/>
+                <Route path="messages" element={<Messages/>}/>
+                <Route path="friends/*" element={<Friends/>}/>
+                <Route path="groups" element={<Groups/>}/>
                 <Route
                     path="photos"
                     element={
                         <React.Suspense fallback={<div>Loading...</div>}>
-                            <Photos />
+                            <Photos/>
                         </React.Suspense>
                     }
                 />
@@ -47,11 +47,11 @@ export const Main: React.FC<MainPropsType> = React.memo(({section, changeGrid}):
                     path="videos"
                     element={
                         <React.Suspense fallback={<div>Loading...</div>}>
-                            <Videos />
+                            <Videos/>
                         </React.Suspense>
                     }
                 />
-                <Route path="logout" element={<Logout changeGrid={changeGrid} />} />
+                <Route path="logout" element={<Logout changeGrid={changeGrid}/>}/>
             </Routes>
         </div>
     )

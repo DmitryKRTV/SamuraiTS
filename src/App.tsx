@@ -1,39 +1,45 @@
-import React from "react";
-import "./App.css";
-import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import {UsersF} from "./components/Users/UsersF";
-import {UsersContainer} from "./components/Users/UsersContainer";
+import React, {ReactElement, useEffect} from "react"
+import "./App.css"
+import {Header} from "./components/Header/Header"
+import {Footer} from "./components/Footer/Footer"
+import {Nav} from "./components/Section/Nav/Nav"
+import {Main} from "./components/Section/Main/Main"
+import {Contacts} from "./components/Section/Contacts/Contacts"
+import {Logout} from "./components/Section/Main/Logout/Logout"
+import {getAuthUserDataTC} from "./redux/reducers/authReducer"
+import {useLocalStateSection} from "./hooks/useLocalStateSection"
+import {useAppDispatch} from "./hooks/useAppDispatch"
 
-type AppPropsType = {
-    state: any
-}
+export const App = (): ReactElement => {
+    const dispatch = useAppDispatch()
 
-const App: React.FC<AppPropsType> = (props) => {
-    const {state} = props
+    const [section, setSection] = useLocalStateSection("section", "sectionAll")
+
+    useEffect(() => {
+        dispatch(getAuthUserDataTC())
+    }, [dispatch])
+
+    const changeGrid = (value: SectionCSSType): void => {
+        setSection(value)
+    }
 
     return (
-        <BrowserRouter>
-            <div className="App">
-                <Header/>
-                <Navbar/>
-                <div className={"content"}>
-                    <Routes>
-                        <Route path="/profile"
-                               element={<Profile profilePage={state.profilePage}
-                               />}/>
-                        <Route path="/dialogs/*"
-                               element={<DialogsContainer/>}/>
-                        <Route path="/users/*"
-                               element={<UsersContainer/>}/>
-                    </Routes>
-                </div>
+        <div className="App">
+            <Header section={section} />
+            <div className={section}>
+                <Nav section={section} changeGrid={changeGrid} />
+                <Main section={section} changeGrid={changeGrid} />
+                {section === "sectionAll" && <Contacts />}
             </div>
-        </BrowserRouter>
-    );
+            <Footer section={section} />
+            {section === "sectionLogout" && <Logout changeGrid={changeGrid} />}
+        </div>
+    )
 }
 
-export default App;
+// TYPES
+export type SectionCSSType =
+    | "sectionAll"
+    | "sectionMessages"
+    | "sectionLogout"
+    | "sectionError"

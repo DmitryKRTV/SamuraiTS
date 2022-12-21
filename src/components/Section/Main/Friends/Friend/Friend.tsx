@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Friend.module.css";
 import friendAvatar from "../../../../../img/Contacts/friend-avatar4.jpg"
-import {Button} from "../../../../UIKit/Button";
+import {Button} from "../../../../common/Button";
 import {NavLink} from "react-router-dom";
 
 type FriendsPropsType = {

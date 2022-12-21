@@ -8,8 +8,8 @@ import {
     toggleFollowingInProgressAC,
     unfollowingUserTC,
 } from "../../../../../redux/reducers/friendsReducer"
-import {Preloader} from "../../../../UIKit/Preloader"
-import {ShowMore} from "../../../../UIKit/ShowMore"
+import {Preloader} from "../../../../common/Preloader"
+import {ShowMore} from "../../../../common/ShowMore"
 import {Pagination} from "./Pagination"
 import {useAppDispatch} from "../../../../../hooks/useAppDispatch"
 import {useAppSelector} from "../../../../../hooks/useAppSelector"
@@ -61,11 +61,11 @@ export const FindFriends = (): ReactElement => {
     return (
         <div className={styles.findFriends}>
             {isFetching ? (
-                <Preloader />
+                <Preloader/>
             ) : (
                 <div>
                     {friendsFindElement}
-                    <ShowMore callback={showMoreFoundUsers} />
+                    <ShowMore callback={showMoreFoundUsers}/>
                     <Pagination
                         totalFoundFriends={totalFoundFriends}
                         pageSize={pageSize}
